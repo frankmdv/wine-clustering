@@ -41,8 +41,6 @@ for i in range(iters):
         indexes = np.where(real_train_class == j)
         real_average[j, :] = np.mean(df_train[indexes, :], axis=1)
 
-    # Modelo k-means --------------------------------------------------------
-
     kmeans = KMeans(n_clusters=3, n_init=25)
     kmeans.fit(df_train)
 
@@ -53,7 +51,7 @@ for i in range(iters):
 
     rename = np.zeros([len(f_classes), 1])
     for j in range(len(f_classes)):
-        rename[j] = -1  # valor por defecto
+        rename[j] = -1
 
     euclidean_dist = euclidean_distances(real_average, pred_average)
 
@@ -66,7 +64,6 @@ for i in range(iters):
     for j in range(len(pred_val_class)):
         pred_val_class2[j] = np.where(rename == pred_val_class[j])[0]
 
-    # se calcula la matriz de confusion
     cm = confusion_matrix(real_val_class, pred_val_class2)
 
     Metrics.set_confusion_matrix(cm)
